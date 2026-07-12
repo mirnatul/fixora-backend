@@ -17,6 +17,7 @@ const registerUserIntoDB = async (payload: RegisterUserPayload) => {
     // hash password
     const hashedPassword = await bcrypt.hash(password, Number(config.bcrypt_salt_round));
 
+    // user create and profile create (only if the user is technician)
     const createdUser = await prisma.user.create({
         data: { name, email, password: hashedPassword, profileImage, phone, address, city, role }
     })
