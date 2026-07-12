@@ -1,12 +1,22 @@
 model User {
-    id        String       @id @default(uuid())
-    name      String
-    email     String       @unique
-    password  String
-    role      Role         @default(CUSTOMER)
-    status    ActiveStatus @default(ACTIVE)
-    createdAt DateTime     @default(now())
-    updatedAt DateTime     @updatedAt
+    id           String  @id @default(uuid())
+    name         String
+    email        String  @unique
+    password     String
+    phone        String
+    profileImage String?
+    address      String
+    city         String
+
+    role   Role         @default(CUSTOMER)
+    status ActiveStatus @default(ACTIVE)
+
+    technicianProfile TechnicianProfile?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("users")
 }
 
 enum Role {
