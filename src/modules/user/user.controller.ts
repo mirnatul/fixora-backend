@@ -50,7 +50,6 @@ const updateUserStatus = catchAsync(async (req: Request, res: Response, next: Ne
         data: result
     })
 
-    // const result = await userController.updateUserStatus(userId, payload)
 })
 
 

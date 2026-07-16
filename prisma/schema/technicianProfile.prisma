@@ -3,7 +3,6 @@ model TechnicianProfile {
 
     bio        String?
     experience String?
-    hourlyRate Int     @default(0)
 
     averageRating Decimal @default(0) @db.Decimal(2, 1)
     totalReviews  Int     @default(0)

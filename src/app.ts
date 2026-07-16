@@ -9,6 +9,7 @@ import { Role } from "../generated/prisma/enums";
 import { userRoutes } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.route";
 import { categoryRoute } from "./modules/category/category.route";
+import { technicianRoutes } from "./modules/technician/technician.route";
 
 const app: Application = express();
 
@@ -29,6 +30,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes)
 
 app.use("/api/category", categoryRoute);
+
+app.use("/api/technician", technicianRoutes)
 
 
 export default app;
