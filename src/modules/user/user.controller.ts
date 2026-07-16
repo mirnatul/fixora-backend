@@ -22,6 +22,40 @@ const registerUser = catchAsync(async (req: Request, res: Response, next: NextFu
 })
 
 
+// admin
+const getAllUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const allUser = await userService.getAllUserFromDB();
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Successfully extract all user",
+        data: allUser
+    })
+})
+
+// update user status
+const updateUserStatus = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.userId as string;
+    const payload = req.body;
+    console.log(userId, payload);
+
+    const result = await userService.updateUserStatusInDB(userId, payload);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Successfully extract all user",
+        data: result
+    })
+
+    // const result = await userController.updateUserStatus(userId, payload)
+})
+
+
 export const userController = {
-    registerUser
+    registerUser,
+    getAllUser,
+    updateUserStatus
 }

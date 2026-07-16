@@ -1,4 +1,4 @@
-import { Role } from "../../../generated/prisma/enums";
+import { ActiveStatus, Role } from "../../../generated/prisma/enums";
 
 export interface RegisterUserPayload {
     name: string;
@@ -9,4 +9,8 @@ export interface RegisterUserPayload {
     address: string;
     city: string;
     role: Role
+}
+
+export interface UpdateStatusPayload {
+    status: ActiveStatus
 }

@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
 import config from "../../config";
-import { Role } from "../../../generated/prisma/enums";
-import { RegisterUserPayload } from "./user.interface";
+import { ActiveStatus, Role } from "../../../generated/prisma/enums";
+import { RegisterUserPayload, UpdateStatusPayload } from "./user.interface";
 
 
 const registerUserIntoDB = async (payload: RegisterUserPayload) => {
@@ -35,6 +35,34 @@ const registerUserIntoDB = async (payload: RegisterUserPayload) => {
     return user;
 }
 
+// admin only
+const getAllUserFromDB = async () => {
+    const [totalUsers, users] = await Promise.all([
+        prisma.user.count(),
+        prisma.user.findMany({
+            omit: { password: true }
+        }),
+    ]);
+
+    return {
+        totalUsers,
+        users,
+    };
+};
+
+// admin only
+const updateUserStatusInDB = async (userId: string, payload: UpdateStatusPayload) => {
+    const user = await prisma.user.update({
+        where: { id: userId },
+        data: payload,
+        omit: { password: true }
+    })
+
+    return user;
+}
+
 export const userService = {
-    registerUserIntoDB
+    registerUserIntoDB,
+    getAllUserFromDB,
+    updateUserStatusInDB
 }
