@@ -2,7 +2,7 @@ model TechnicianProfile {
     id String @id @default(uuid())
 
     bio        String?
-    experience String?
+    experience Int?
 
     averageRating Decimal @default(0) @db.Decimal(2, 1)
     totalReviews  Int     @default(0)

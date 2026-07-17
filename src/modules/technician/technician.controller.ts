@@ -4,6 +4,20 @@ import { sendResponse } from "../../utils/sendResponse"
 import httpStatus from 'http-status';
 import { technicianService } from "./technician.service";
 
+
+const getAllTechnician = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const query = req.query;
+    const result = await technicianService.getAllTechnician(query);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.CREATED,
+        message: "Technician data extracted",
+        data: result
+    })
+})
+
+
 const getTechnicianProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.user?.id as string
 
@@ -31,6 +45,7 @@ const updateTechnicianProfile = catchAsync(async (req: Request, res: Response, n
 })
 
 export const technicianController = {
+    getAllTechnician,
     getTechnicianProfile,
     updateTechnicianProfile
 }

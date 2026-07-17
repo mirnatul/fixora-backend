@@ -5,6 +5,7 @@ import { Role } from "../../../generated/prisma/enums";
 
 const router = Router()
 
+router.get("/", technicianController.getAllTechnician)
 router.get("/profile", auth(Role.TECHNICIAN), technicianController.getTechnicianProfile)
 
 router.put("/profile", auth(Role.TECHNICIAN), technicianController.updateTechnicianProfile)
