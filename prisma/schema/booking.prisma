@@ -1,6 +1,13 @@
 model Booking {
     id String @id @default(uuid())
 
+    bookingDate DateTime
+    slot        Int
+    address     String
+    notes       String
+    totalAmount Int
+    status      BookingStatus
+
     serviceId String
     service   Service @relation(fields: [serviceId], references: [id])
 
@@ -14,4 +21,13 @@ model Booking {
     payment Payment?
 
     @@map("bookings")
+}
+
+// if technician accepted the booking only then a customer can pay
+enum BookingStatus {
+    PENDING
+    ACCEPTED
+    CANCELLED
+    IN_PROGRESS
+    COMPLETED
 }

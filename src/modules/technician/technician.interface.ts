@@ -12,3 +12,8 @@ export interface TechnicianQuery extends TechnicianProfileWhereInput {
     isAvailable?: boolean;
     verified?: boolean;
 }
+
+export interface IAvailability {
+    date: Date;
+    slot: number[];
+}

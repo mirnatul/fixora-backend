@@ -10,4 +10,8 @@ router.get("/profile", auth(Role.TECHNICIAN), technicianController.getTechnician
 
 router.put("/profile", auth(Role.TECHNICIAN), technicianController.updateTechnicianProfile)
 
+// manage availability
+router.put("/availability", auth(Role.TECHNICIAN), technicianController.updateAvailability)
+
+
 export const technicianRoutes = router;

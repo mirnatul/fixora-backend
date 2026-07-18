@@ -1,6 +1,6 @@
 import { TechnicianProfileWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma"
-import { payloadUpdateProfile, TechnicianQuery } from "./technician.interface"
+import { IAvailability, payloadUpdateProfile, TechnicianQuery } from "./technician.interface"
 
 const getAllTechnician = async (query: TechnicianQuery) => {
 
@@ -53,8 +53,75 @@ const updateTechnicianProfile = async (userId: string, payload: payloadUpdatePro
     })
 }
 
+// payload be like
+// {
+//     "date": "2026-07-21",
+//     "slot": [1,2]
+// }
+const updateAvailability = async (userId: string, payload: IAvailability) => {
+
+
+    // clean up befor today's availabiity
+    // ----------------------------------------------------------
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const result = await prisma.availability.deleteMany({
+        where: {
+            date: {
+                lt: today,
+            },
+        },
+    });
+    // -----------------------------------------------------------
+
+
+
+    const { id } = await prisma.technicianProfile.findUniqueOrThrow({
+        where: { userId }
+    })
+
+    // find the availability
+    const availability = await prisma.availability.findFirst({
+        where: {
+            technicianId: id,
+            date: new Date(payload.date)
+        }
+    })
+
+    if (!availability) {
+        return await prisma.availability.create({
+            data: {
+                technicianId: id,
+                date: new Date(payload.date),
+                bookedSlot: payload.slot,
+            },
+        });
+    }
+
+    const dbSlot = availability.bookedSlot;
+    const payloadSlot = payload.slot;
+
+    // Merge and remove duplicates
+    const updatedSlots = [...new Set([...dbSlot, ...payloadSlot])];
+
+
+    return await prisma.availability.update({
+        where: {
+            technicianId_date: {
+                technicianId: id,
+                date: new Date(payload.date),
+            },
+        },
+        data: {
+            bookedSlot: updatedSlots,
+        },
+    });
+}
+
 export const technicianService = {
     getAllTechnician,
     getTechnicianProfile,
-    updateTechnicianProfile
+    updateTechnicianProfile,
+    updateAvailability
 }

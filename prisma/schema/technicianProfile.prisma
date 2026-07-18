@@ -11,7 +11,7 @@ model TechnicianProfile {
     verified    Boolean @default(false)
 
     service      Service[]
-    availability Availabililty[]
+    availability Availability[]
     booking      Booking[]
 
     userId String @unique

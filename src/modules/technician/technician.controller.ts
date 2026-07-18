@@ -44,8 +44,22 @@ const updateTechnicianProfile = catchAsync(async (req: Request, res: Response, n
     })
 })
 
+const updateAvailability = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id as string
+    const payload = req.body;
+    const result = await technicianService.updateAvailability(userId, payload);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Availability updated successfully",
+        data: result
+    })
+})
+
 export const technicianController = {
     getAllTechnician,
     getTechnicianProfile,
-    updateTechnicianProfile
+    updateTechnicianProfile,
+    updateAvailability
 }
