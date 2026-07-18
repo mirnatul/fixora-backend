@@ -10,6 +10,8 @@ model TechnicianProfile {
     isAvailable Boolean @default(true)
     verified    Boolean @default(false)
 
+    service Service[]
+
     userId String @unique
     user   User   @relation(fields: [userId], references: [id])
 

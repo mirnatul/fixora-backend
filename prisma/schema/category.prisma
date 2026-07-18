@@ -3,6 +3,8 @@ model Category {
     name        String
     description String
 
+    service Service[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 

@@ -10,6 +10,7 @@ import { userRoutes } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.route";
 import { categoryRoute } from "./modules/category/category.route";
 import { technicianRoutes } from "./modules/technician/technician.route";
+import { serviceRoutes } from "./modules/service/service.route";
 
 const app: Application = express();
 
@@ -32,6 +33,8 @@ app.use("/api/auth", authRoutes)
 app.use("/api/category", categoryRoute);
 
 app.use("/api/technician", technicianRoutes)
+
+app.use("/api/services", serviceRoutes)
 
 
 export default app;
