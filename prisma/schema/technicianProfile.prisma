@@ -10,7 +10,9 @@ model TechnicianProfile {
     isAvailable Boolean @default(true)
     verified    Boolean @default(false)
 
-    service Service[]
+    service      Service[]
+    availability Availabililty[]
+    booking      Booking[]
 
     userId String @unique
     user   User   @relation(fields: [userId], references: [id])

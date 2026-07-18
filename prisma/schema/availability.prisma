@@ -1,0 +1,8 @@
+model Availabililty {
+    id String @id @default(uuid())
+
+    technicianId String
+    technician   TechnicianProfile @relation(fields: [technicianId], references: [id])
+
+    @@map("availability")
+}
