@@ -86,6 +86,46 @@ const createBooking = async (userId: string, payload: IBookingPayload) => {
     return booking;
 }
 
+const getBookingDetails = async (userId: string, bookingId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId }
+    })
+    const profile = await prisma.technicianProfile.findUnique({
+        where: { userId }
+    })
+
+    const booking = await prisma.booking.findUniqueOrThrow({
+        where: { id: bookingId }
+    })
+
+    if (booking.customerId === userId || booking.technicianId === profile?.id || user?.role === "ADMIN") {
+        return booking;
+    }
+    else {
+        throw new Error("You are not authorized to visit this route")
+    }
+}
+
+const getAllBookings = async () => {
+    return await prisma.booking.findMany();
+}
+
+const getBookingForUser = async (userId: string) => {
+    return await prisma.booking.findMany({
+        where: { customerId: userId }
+    })
+}
+
+const getBookingForTechnician = async (technicianId: string) => {
+    return await prisma.booking.findMany({
+        where: { technicianId }
+    })
+}
+
 export const bookingService = {
-    createBooking
+    createBooking,
+    getBookingDetails,
+    getAllBookings,
+    getBookingForUser,
+    getBookingForTechnician
 }
