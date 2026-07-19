@@ -10,4 +10,7 @@ router.get("/admin", auth(Role.ADMIN), bookingController.getAllBookings)
 router.get("/:bookingId", auth(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN), bookingController.getBookingDetails)
 router.get("/user/:userId", auth(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN), bookingController.getBookingForUser)
 router.get("/technician/:technicianId", auth(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN), bookingController.getBookingForTechnician)
+router.patch("/update-status/:bookingId", auth(Role.TECHNICIAN), bookingController.updateBookingStatus)
+
+
 export const bookingRoute = router;

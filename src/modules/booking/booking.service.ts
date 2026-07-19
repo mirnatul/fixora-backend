@@ -1,3 +1,4 @@
+import { BookingStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma"
 import { IBookingPayload } from "./booking.interface"
 
@@ -122,10 +123,35 @@ const getBookingForTechnician = async (technicianId: string) => {
     })
 }
 
+interface IPayload {
+    status: BookingStatus
+}
+
+const updateBookingStatus = async (userId: string, bookingId: string, payload: IPayload) => {
+    const technician = await prisma.technicianProfile.findUniqueOrThrow({
+        where: { userId }
+    })
+
+    const booking = await prisma.booking.findUniqueOrThrow({
+        where: { id: bookingId }
+    })
+
+    if (technician.id !== booking.technicianId) {
+        throw new Error("This is not your booking...!")
+    }
+
+    return await prisma.booking.update({
+        where: { id: bookingId },
+        data: payload
+    })
+}
+
+
 export const bookingService = {
     createBooking,
     getBookingDetails,
     getAllBookings,
     getBookingForUser,
-    getBookingForTechnician
+    getBookingForTechnician,
+    updateBookingStatus
 }
