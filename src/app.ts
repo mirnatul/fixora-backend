@@ -1,16 +1,13 @@
 import cookieParser from "cookie-parser";
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import config from "./config";
-import HttpStatus from "http-status";
-import { prisma } from "./lib/prisma";
-import bcrypt from "bcryptjs";
-import { Role } from "../generated/prisma/enums";
 import { userRoutes } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.route";
 import { categoryRoute } from "./modules/category/category.route";
 import { technicianRoutes } from "./modules/technician/technician.route";
 import { serviceRoutes } from "./modules/service/service.route";
+import { bookingRoute } from "./modules/booking/booking.route";
 
 const app: Application = express();
 
@@ -35,6 +32,8 @@ app.use("/api/category", categoryRoute);
 app.use("/api/technician", technicianRoutes)
 
 app.use("/api/services", serviceRoutes)
+
+app.use("/api/bookings", bookingRoute)
 
 
 export default app;

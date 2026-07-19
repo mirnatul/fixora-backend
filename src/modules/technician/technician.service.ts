@@ -66,7 +66,7 @@ const updateAvailability = async (userId: string, payload: IAvailability) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const result = await prisma.availability.deleteMany({
+    await prisma.availability.deleteMany({
         where: {
             date: {
                 lt: today,
@@ -102,8 +102,14 @@ const updateAvailability = async (userId: string, payload: IAvailability) => {
     const dbSlot = availability.bookedSlot;
     const payloadSlot = payload.slot;
 
-    // Merge and remove duplicates
-    const updatedSlots = [...new Set([...dbSlot, ...payloadSlot])];
+    const duplicateSlots = payloadSlot.filter(slot => dbSlot.includes(slot));
+
+    if (duplicateSlots.length > 0) {
+        throw new Error(`These slots are already booked: ${duplicateSlots.join(", ")}`);
+    }
+
+    const updatedSlots = [...dbSlot, ...payloadSlot];
+
 
 
     return await prisma.availability.update({

@@ -2,11 +2,11 @@ model Booking {
     id String @id @default(uuid())
 
     bookingDate DateTime
-    slot        Int
+    slot        Int[]
     address     String
     notes       String
     totalAmount Int
-    status      BookingStatus
+    status      BookingStatus @default(PENDING)
 
     serviceId String
     service   Service @relation(fields: [serviceId], references: [id])
