@@ -1,0 +1,22 @@
+import { NextFunction, Request, Response } from "express";
+import { catchAsync } from "../../utils/catchAsync";
+import { paymentService } from "./payment.service";
+import { sendResponse } from "../../utils/sendResponse";
+import httpStatus from 'http-status';
+
+const createCechoutSession = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const bookingId = req.params.bookingId;
+    const userId = req.user?.id;
+
+    const result = await paymentService.createCheckoutSession(bookingId as string, userId as string);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Checkout completed successfully",
+        data: result
+    })
+})
+
+export const paymentController = {
+    createCechoutSession
+}
