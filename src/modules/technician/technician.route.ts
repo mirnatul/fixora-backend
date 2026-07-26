@@ -8,6 +8,9 @@ const router = Router()
 router.get("/", technicianController.getAllTechnician)
 router.get("/profile", auth(Role.TECHNICIAN), technicianController.getTechnicianProfile)
 
+// get technician profile with review
+router.get("/:technicianId", technicianController.getTechnicianProfileWithReview)
+
 router.put("/profile", auth(Role.TECHNICIAN), technicianController.updateTechnicianProfile)
 
 // manage availability

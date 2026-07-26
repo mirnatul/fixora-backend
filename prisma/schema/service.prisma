@@ -15,7 +15,6 @@ model Service {
     categoryId String
     category   Category @relation(fields: [categoryId], references: [id])
 
-    review  Review[]
     booking Booking[]
 
     createdAt DateTime @default(now())

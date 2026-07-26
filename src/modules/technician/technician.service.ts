@@ -125,9 +125,31 @@ const updateAvailability = async (userId: string, payload: IAvailability) => {
     });
 }
 
+const getTechnicianProfileWithReview = async (technicianId: string) => {
+    const [profile, reviews] = await Promise.all([
+        prisma.technicianProfile.findUniqueOrThrow({
+            where: { id: technicianId },
+        }),
+
+        prisma.review.findMany({
+            where: {
+                booking: {
+                    technicianId,
+                },
+            },
+        }),
+    ]);
+
+    return {
+        ...profile,
+        reviews,
+    };
+}
+
 export const technicianService = {
     getAllTechnician,
     getTechnicianProfile,
     updateTechnicianProfile,
-    updateAvailability
+    updateAvailability,
+    getTechnicianProfileWithReview
 }

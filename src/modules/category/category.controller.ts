@@ -3,6 +3,7 @@ import { catchAsync } from "../../utils/catchAsync"
 import { sendResponse } from './../../utils/sendResponse';
 import httpStatus from 'http-status';
 import { categoryService } from "./category.service";
+import { Role } from "../../../generated/prisma/enums";
 
 const createCategory = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const payload = req.body;
@@ -17,12 +18,14 @@ const createCategory = catchAsync(async (req: Request, res: Response, next: Next
 })
 
 const getAllCategory = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const category = await categoryService.getAllCategory();
+    const category = await categoryService.getAllCategory(req.user?.role || "CUSTOMER" as Role);
+
+    // console.log(req.user?.role);
 
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Category created successfully",
+        message: "Category extracted successfully",
         data: category
     })
 })
