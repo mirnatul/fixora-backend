@@ -103,8 +103,27 @@ const handleWebhook = async (payload: Buffer, signature: string) => {
     }
 }
 
+const getCurrentUsersPaymentHistory = async (userId: string) => {
+    return await prisma.payment.findMany({
+        where: { customerId: userId }
+    })
+}
+
+const getPaymentHistoryById = async (userId: string, paymentId: string) => {
+    const payment = await prisma.payment.findUniqueOrThrow({
+        where: { id: paymentId }
+    })
+
+    if (payment.customerId !== userId) {
+        throw new Error("You can't see a payment history which is not yours")
+    }
+    return payment
+}
+
 
 export const paymentService = {
     createCheckoutSession,
-    handleWebhook
+    handleWebhook,
+    getCurrentUsersPaymentHistory,
+    getPaymentHistoryById
 }

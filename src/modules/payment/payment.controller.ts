@@ -32,7 +32,34 @@ const handleWebhook = catchAsync(async (req: Request, res: Response, next: NextF
     })
 })
 
+const getCurrentUsersPaymentHistory = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+    const result = await paymentService.getCurrentUsersPaymentHistory(userId as string)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Your payment history extracted",
+        data: result
+    })
+})
+
+const getPaymentHistoryById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+    const paymentId = req.params.paymentId;
+    const result = await paymentService.getPaymentHistoryById(userId as string, paymentId as string)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Your payment history extracted",
+        data: result
+    })
+})
+
 export const paymentController = {
     createCechoutSession,
-    handleWebhook
+    handleWebhook,
+    getCurrentUsersPaymentHistory,
+    getPaymentHistoryById
 }
