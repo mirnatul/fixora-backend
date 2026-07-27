@@ -17,6 +17,11 @@ const app: Application = express();
 
 // for cookies credentials true (learn more)
 app.use(cors({ origin: config.app_url, credentials: true }));
+
+// webhook
+// the link will just apply the raw and exclude json and then match the route
+app.use("/api/payment/webhook", express.raw({ type: 'application/json' }))
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -27,19 +32,20 @@ app.get("/", async (req: Request, res: Response) => {
 
 // register
 app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes)
+
+app.use("/api/auth", authRoutes);
 
 app.use("/api/category", categoryRoute);
 
-app.use("/api/technician", technicianRoutes)
+app.use("/api/technician", technicianRoutes);
 
-app.use("/api/services", serviceRoutes)
+app.use("/api/services", serviceRoutes);
 
-app.use("/api/bookings", bookingRoute)
+app.use("/api/bookings", bookingRoute);
 
-app.use("/api/review", reviewRoute)
+app.use("/api/review", reviewRoute);
 
-app.use("/api/payment", paymentRoute)
+app.use("/api/payment", paymentRoute);
 
 
 export default app;
