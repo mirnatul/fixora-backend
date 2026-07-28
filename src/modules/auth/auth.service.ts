@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
-import { ILoginUser } from "./auth.interface"
+import { ILoginUser, IUpdateUser } from "./auth.interface"
 import { JwtPayload, SignOptions } from "jsonwebtoken"
 import config from "../../config";
 import { jwtUtils } from "../../utils/jwt";
@@ -58,16 +58,22 @@ const getMyProfileFromDB = async (userId: string) => {
     return user;
 }
 
-const updateMyInfo = async (userId: string, payload: any) => {
-    const { name, phone, address, city, profileImage } = payload;
+const updateMyInfo = async (userId: string, payload: IUpdateUser) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: {
+            id: userId,
+        },
+    });
 
-    const updatedUser = await prisma.user.update({
+    if (user.id !== userId) {
+        throw new Error("You can only edit your id!")
+    }
+
+    return await prisma.user.update({
         where: { id: userId },
-        data: { name, phone, address, city, profileImage },
+        data: payload,
         omit: { password: true }
-    })
-
-    return updatedUser;
+    });
 }
 
 const refreshToken = async (refreshToken: string) => {

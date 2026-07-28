@@ -1,0 +1,881 @@
+{
+  "info": {
+    "_postman_id": "7011b690-83d1-4dae-89ca-edfad64a81c6",
+    "name": "fixora",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54730054",
+    "_collection_link": "https://go.postman.co/collection/54730054-7011b690-83d1-4dae-89ca-edfad64a81c6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "authentication",
+      "item": [
+        {
+          "name": "register user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"mirnatul-c-prod\",\r\n    \"email\": \"mirnatul-c-prod@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"017xxxxxxxx\",\r\n    \"address\": \"Uttar Badda, Dhaka\",\r\n    \"city\": \"Dhaka\",\r\n    \"role\": \"CUSTOMER\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/users/register",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"mirnatul-c@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"user1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/auth/me",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update me",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"mirnatul-c\",\r\n    \"city\": \"Rangpur\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/auth/me/update",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refresh-token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/auth/refresh-token",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "get all user",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"user5\",\r\n    \"email\": \"user5@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"017xxxxxxxx\",\r\n    \"address\": \"Uttar Badda, Dhaka\",\r\n    \"city\": \"Dhaka\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/users/admin/users",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "users",
+                "admin",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"BANNED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/users/admin/users/2c561993-fc3d-419e-8863-238adf11b9ee",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "users",
+                "admin",
+                "users",
+                "2c561993-fc3d-419e-8863-238adf11b9ee"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"name\": \"swimming\",\r\n    \"description\": \"Providing you learn pro swimming in 10 days\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/category",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/category",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all booking",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serviceId\": \"ce8dd133-d290-47c3-ae16-7b909ca5b248\",\r\n  \"bookingDate\": \"2026-11-10T00:00:00+00:00\",\r\n  \"slot\": [4, 2],\r\n  \"address\": \"Flat B2, Mirpur DOHS, Dhaka\",\r\n  \"notes\": \"Repair the kitchen sink.\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings/admin",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "technician",
+      "item": [
+        {
+          "name": "single profile get for tech",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"name\": \"painting\",\r\n    \"description\": \"High-quality interior and exterior painting services.\"\r\n  }"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/technician/profile",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update profile",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"bio\": \"This is a demo bio in prod\",\r\n    \"experience\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/technician/profile",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "profile"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "all technician",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"mirnatul-t2\",\r\n    \"email\": \"mirnatul-c@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"017xxxxxxxx\",\r\n    \"address\": \"Uttar Badda, Dhaka\",\r\n    \"city\": \"Dhaka\",\r\n    \"role\": \"TECHNICIAN\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/technician",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician"
+              ],
+              "query": [
+                {
+                  "key": "isAvailable",
+                  "value": "true",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "avilability manage own",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date\": \"2026-07-30\",\r\n    \"slot\": [4]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/technician/availability",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "availability"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tech profile with review",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"bio\": \"This is a demo bio\",\r\n    \"experience\": \"demo exp\",\r\n    \"isAvailable\": false\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/technician/977cf5b7-66da-49b4-971c-97101288fd5a",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "977cf5b7-66da-49b4-971c-97101288fd5a"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "create service",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"2 Emergency Plumbing Service prod\",\r\n    \"description\": \"24/7 emergency plumbing support for burst pipes, leaks, and water supply issues.\",\r\n    \"price\": 1900,\r\n    \"duration\": 90,\r\n    \"location\": \"Dhaka\",\r\n    \"categoryId\": \"3be0c12a-4b0f-4087-8d62-4aa3359ed4c2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/services",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "services"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get service",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Pipe Leak Repair\",\r\n  \"description\": \"Professional repair for leaking pipes in kitchens, bathrooms, and other areas.\",\r\n  \"price\": 1500,\r\n  \"duration\": 90,\r\n  \"location\": \"Dhaka\",\r\n  \"categoryId\": \"3be0c12a-4b0f-4087-8d62-4aa3359ed4c2\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/services?rating=4.5",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "services"
+              ],
+              "query": [
+                {
+                  "key": "rating",
+                  "value": "4.5"
+                },
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update service",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Premium AC Repair updated prod\",\r\n  \"description\": \"Professional AC repair and maintenance service with a 30-day service warranty.\",\r\n  \"price\": 2500,\r\n  \"duration\": 120,\r\n  \"location\": \"Dhaka\",\r\n  \"active\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/services/244f6010-53f8-457d-9b6d-feac7d65b78d",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "services",
+                "244f6010-53f8-457d-9b6d-feac7d65b78d"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "booking",
+      "item": [
+        {
+          "name": "booking",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serviceId\": \"ce8dd133-d290-47c3-ae16-7b909ca5b248\",\r\n  \"bookingDate\": \"2026-11-15T00:00:00+00:00\",\r\n  \"slot\": [1],\r\n  \"address\": \"Flat B2, Mirpur DOHS, Dhaka\",\r\n  \"notes\": \"Repair the kitchen sink.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "booking by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serviceId\": \"86f23392-827b-4343-8c03-2c3964c97482\",\r\n  \"bookingDate\": \"2026-10-10T00:00:00+00:00\",\r\n  \"slot\": [4],\r\n  \"address\": \"Flat B2, Mirpur DOHS, Dhaka\",\r\n  \"notes\": \"Repair the kitchen sink.\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings/0bac60e4-c373-4d43-934c-8424c3966b63",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "0bac60e4-c373-4d43-934c-8424c3966b63"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bookings for user",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"serviceId\": \"ce8dd133-d290-47c3-ae16-7b909ca5b248\",\r\n  \"bookingDate\": \"2026-11-10T00:00:00+00:00\",\r\n  \"slot\": [4, 2],\r\n  \"address\": \"Flat B2, Mirpur DOHS, Dhaka\",\r\n  \"notes\": \"Repair the kitchen sink.\"\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings/user/d82c087c-a6f2-4760-9d25-2549614481bf",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "user",
+                "d82c087c-a6f2-4760-9d25-2549614481bf"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bookings for technician",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings/technician/977cf5b7-66da-49b4-971c-97101288fd5a",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "technician",
+                "977cf5b7-66da-49b4-971c-97101288fd5a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update booking status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"ACCEPTED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings/update-status/91390ddf-005f-4944-8d98-1195bcff20f3",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "update-status",
+                "91390ddf-005f-4944-8d98-1195bcff20f3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cancel booking by user",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/bookings/cancel-booking/6e85cec3-a2b2-40ff-b624-19b51e40e196",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "cancel-booking",
+                "6e85cec3-a2b2-40ff-b624-19b51e40e196"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "review",
+      "item": [
+        {
+          "name": "create review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"Need to upgrade\"  \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/review/2de5aee7-a14b-4a65-a42f-bb9bf1d5334b",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "review",
+                "2de5aee7-a14b-4a65-a42f-bb9bf1d5334b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "payment",
+      "item": [
+        {
+          "name": "payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \"bio\": \"This is a demo bio\",\r\n    \"experience\": \"demo exp\",\r\n    \"isAvailable\": false\r\n}"
+            },
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/payment/checkout/91390ddf-005f-4944-8d98-1195bcff20f3",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "payment",
+                "checkout",
+                "91390ddf-005f-4944-8d98-1195bcff20f3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/payment",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "payment"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "single payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fixora-backend-seven.vercel.app/api/payment/3218d79f-703a-4fb3-ad01-aa681cd5f214",
+              "protocol": "https",
+              "host": [
+                "fixora-backend-seven",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "payment",
+                "3218d79f-703a-4fb3-ad01-aa681cd5f214"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "home",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://fixora-backend-seven.vercel.app",
+          "protocol": "https",
+          "host": [
+            "fixora-backend-seven",
+            "vercel",
+            "app"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

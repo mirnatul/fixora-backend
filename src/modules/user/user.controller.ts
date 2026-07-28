@@ -5,10 +5,6 @@ import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 
 
-
-
-
-
 const registerUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const payload = req.body;
     const user = await userService.registerUserIntoDB(payload);
@@ -20,20 +16,6 @@ const registerUser = catchAsync(async (req: Request, res: Response, next: NextFu
         data: { user }
     })
 })
-
-const updateUserInfo = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const payload = req.body;
-    const userId = req.user?.id;
-    const user = await userService.updateUserInfo(userId as string, payload);
-
-    sendResponse(res, {
-        success: true,
-        statusCode: httpStatus.OK,
-        message: "User info updated successfully!",
-        data: user
-    })
-})
-
 
 // admin
 const getAllUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -69,6 +51,5 @@ const updateUserStatus = catchAsync(async (req: Request, res: Response, next: Ne
 export const userController = {
     registerUser,
     getAllUser,
-    updateUserStatus,
-    updateUserInfo
+    updateUserStatus
 }

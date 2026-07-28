@@ -46,7 +46,8 @@ const getAllBookings = catchAsync(async (req: Request, res: Response, next: Next
 
 const getBookingForUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId = req.params.userId as string;
-    const result = await bookingService.getBookingForUser(userId);
+    const authenticateUser = req.user?.id as string;
+    const result = await bookingService.getBookingForUser(userId, authenticateUser);
 
     sendResponse(res, {
         success: true,
@@ -59,8 +60,9 @@ const getBookingForUser = catchAsync(async (req: Request, res: Response, next: N
 
 const getBookingForTechnician = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const technicianId = req.params.technicianId as string;
+    const authenticateUser = req.user?.id as string;
     const status = req.query.status as BookingStatus || undefined;
-    const result = await bookingService.getBookingForTechnician(technicianId, status);
+    const result = await bookingService.getBookingForTechnician(technicianId, authenticateUser, status);
 
     sendResponse(res, {
         success: true,

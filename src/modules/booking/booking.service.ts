@@ -111,13 +111,32 @@ const getAllBookings = async () => {
     return await prisma.booking.findMany();
 }
 
-const getBookingForUser = async (userId: string) => {
+const getBookingForUser = async (userId: string, authenticateUser: string) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: { id: userId }
+    })
+    if (userId !== authenticateUser && user.role !== "ADMIN") {
+        throw new Error("This route only accessible by booked user or admin")
+    }
     return await prisma.booking.findMany({
         where: { customerId: userId }
     })
 }
 
-const getBookingForTechnician = async (technicianId: string, status?: BookingStatus) => {
+const getBookingForTechnician = async (technicianId: string, authenticateUser: string, status?: BookingStatus) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: { id: authenticateUser }
+    })
+    const profile = await prisma.technicianProfile.findUniqueOrThrow({
+        where: { id: technicianId }
+    })
+    if (profile.userId !== authenticateUser && user.role !== "ADMIN") {
+        throw new Error("You are not that technician or admin")
+    }
+    // if (userId !== authenticateUser && user.role !== "ADMIN") {
+    //     throw new Error("This route only accessible by booked user or admin")
+    // }
+
     return await prisma.booking.findMany({
         where: { technicianId, ...(status && { status }) }
     })
