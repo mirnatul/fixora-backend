@@ -119,17 +119,6 @@ PENDING ─────► CANCELLED
 ACCEPTED ────► CANCELLED
 ```
 
----
-
-# User Status
-
-| Status | Description |
-|--------|-------------|
-| ACTIVE | User can use the system normally. |
-| BANNED | User cannot access protected resources. |
-
----
-
 # Authorization Header
 
 ```http
