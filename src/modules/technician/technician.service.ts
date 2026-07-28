@@ -53,11 +53,6 @@ const updateTechnicianProfile = async (userId: string, payload: payloadUpdatePro
     })
 }
 
-// payload be like
-// {
-//     "date": "2026-07-21",
-//     "slot": [1,2]
-// }
 const updateAvailability = async (userId: string, payload: IAvailability) => {
 
 
@@ -126,25 +121,70 @@ const updateAvailability = async (userId: string, payload: IAvailability) => {
 }
 
 const getTechnicianProfileWithReview = async (technicianId: string) => {
-    const [profile, reviews] = await Promise.all([
-        prisma.technicianProfile.findUniqueOrThrow({
-            where: { id: technicianId },
-        }),
-
-        prisma.review.findMany({
-            where: {
-                booking: {
-                    technicianId,
+    const technician = await prisma.technicianProfile.findUniqueOrThrow({
+        where: {
+            id: technicianId,
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    phone: true,
+                    city: true,
+                    profileImage: true,
                 },
             },
-        }),
-    ]);
+
+            service: {
+                include: {
+                    category: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                },
+            },
+
+            booking: {
+                where: {
+                    review: {
+                        isNot: null,
+                    },
+                },
+                include: {
+                    review: true,
+
+                    customer: {
+                        select: {
+                            id: true,
+                            name: true,
+                            profileImage: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
 
     return {
-        ...profile,
-        reviews,
+        ...technician,
+
+        reviews: technician.booking
+            .filter((booking) => booking.review)
+            .map((booking) => ({
+                id: booking.review!.id,
+                rating: booking.review!.rating,
+                comment: booking.review!.comment,
+
+                customer: booking.customer,
+            })),
+
+        booking: undefined,
     };
-}
+};
 
 export const technicianService = {
     getAllTechnician,

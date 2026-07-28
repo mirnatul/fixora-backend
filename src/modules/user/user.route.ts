@@ -11,5 +11,9 @@ router.get("/admin/users", auth(Role.ADMIN), userController.getAllUser)
 
 router.patch("/admin/users/:userId", auth(Role.ADMIN), userController.updateUserStatus)
 
+// update user info
+router.patch("/update-user-info", auth(Role.ADMIN, Role.CUSTOMER, Role.TECHNICIAN), userController.updateUserInfo)
+
+
 
 export const userRoutes = router;

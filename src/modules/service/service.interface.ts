@@ -16,3 +16,12 @@ export interface IServiceQuery {
     rating?: number;
     active?: string;
 }
+
+export interface IUpdateService {
+    title?: string;
+    description?: string;
+    price?: number;
+    duration?: number;
+    location?: string;
+    active?: boolean;
+}

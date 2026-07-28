@@ -1,6 +1,6 @@
 import { ServiceWhereInput } from "../../../generated/prisma/models"
 import { prisma } from "../../lib/prisma"
-import { IService, IServiceQuery } from "./service.interface"
+import { IService, IServiceQuery, IUpdateService } from "./service.interface"
 
 const createService = async (payload: IService, userId: string) => {
     const technician = await prisma.technicianProfile.findUniqueOrThrow({
@@ -12,6 +12,28 @@ const createService = async (payload: IService, userId: string) => {
     })
 
     return service;
+}
+
+const updateService = async (userId: string, serviceId: string, payload: IUpdateService) => {
+    const technician = await prisma.technicianProfile.findUniqueOrThrow({
+        where: { userId }
+    })
+
+    const service = await prisma.service.findUnique({
+        where: { id: serviceId, technicianId: technician.id }
+    })
+    if (!service) {
+        throw new Error("This service is not yours!!")
+    }
+
+    const updatedService = await prisma.service.update({
+        where: {
+            id: serviceId, technicianId: technician.id
+        },
+        data: payload
+    });
+
+    return updatedService;
 }
 
 // get service with filter (type/category, location, rating)
@@ -78,5 +100,6 @@ const getService = async (query: IServiceQuery) => {
 
 export const serviceService = {
     createService,
-    getService
+    getService,
+    updateService
 }

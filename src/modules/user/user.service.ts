@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
 import config from "../../config";
-import { ActiveStatus, Role } from "../../../generated/prisma/enums";
-import { RegisterUserPayload, UpdateStatusPayload } from "./user.interface";
+import { Role } from "../../../generated/prisma/enums";
+import { IUpdateUser, RegisterUserPayload, UpdateStatusPayload } from "./user.interface";
 
 
 const registerUserIntoDB = async (payload: RegisterUserPayload) => {
@@ -35,6 +35,24 @@ const registerUserIntoDB = async (payload: RegisterUserPayload) => {
     return user;
 }
 
+const updateUserInfo = async (userId: string, payload: IUpdateUser) => {
+    const user = await prisma.user.findUniqueOrThrow({
+        where: {
+            id: userId,
+        },
+    });
+
+    if (user.id !== userId) {
+        throw new Error("You can only edit your id!")
+    }
+
+    return await prisma.user.update({
+        where: { id: userId },
+        data: payload,
+        omit: { password: true }
+    });
+}
+
 // admin only
 const getAllUserFromDB = async () => {
     const [totalUsers, users] = await Promise.all([
@@ -64,5 +82,6 @@ const updateUserStatusInDB = async (userId: string, payload: UpdateStatusPayload
 export const userService = {
     registerUserIntoDB,
     getAllUserFromDB,
-    updateUserStatusInDB
+    updateUserStatusInDB,
+    updateUserInfo
 }

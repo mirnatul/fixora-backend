@@ -117,9 +117,9 @@ const getBookingForUser = async (userId: string) => {
     })
 }
 
-const getBookingForTechnician = async (technicianId: string) => {
+const getBookingForTechnician = async (technicianId: string, status?: BookingStatus) => {
     return await prisma.booking.findMany({
-        where: { technicianId }
+        where: { technicianId, ...(status && { status }) }
     })
 }
 
@@ -146,6 +146,26 @@ const updateBookingStatus = async (userId: string, bookingId: string, payload: I
     })
 }
 
+const cancelBookingByUser = async (userId: string, bookingId: string) => {
+    const booking = await prisma.booking.findUnique({
+        where: { id: bookingId, customerId: userId }
+    })
+
+    if (booking?.customerId !== userId) {
+        throw new Error("You can only cancel your booking!")
+    }
+
+    if (booking.status === "PENDING" || booking.status === "ACCEPTED") {
+        return await prisma.booking.update({
+            where: { id: bookingId },
+            data: { status: "CANCELLED" }
+        })
+    }
+    else {
+        throw new Error("The booking is already in procees or completed you can't cancel now")
+    }
+}
+
 
 export const bookingService = {
     createBooking,
@@ -153,5 +173,6 @@ export const bookingService = {
     getAllBookings,
     getBookingForUser,
     getBookingForTechnician,
-    updateBookingStatus
+    updateBookingStatus,
+    cancelBookingByUser
 }

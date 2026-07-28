@@ -14,3 +14,11 @@ export interface RegisterUserPayload {
 export interface UpdateStatusPayload {
     status: ActiveStatus
 }
+
+export interface IUpdateUser {
+    name?: string;
+    phone?: string;
+    profileImage?: string;
+    address?: string;
+    city?: string;
+}
